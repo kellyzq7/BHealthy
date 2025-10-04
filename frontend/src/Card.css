@@ -1,0 +1,122 @@
+@font-face {
+  font-family: "Albert Sans";
+  src: url("fonts/AlbertSans-Italic.ttf") format("truetype");
+  font-weight: 800; 
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Helios Extended";
+  src: url("fonts/HeliosExt.otf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.calories-input {
+  width: 80%;
+  /* padding-top: 500px; */
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  font-family: "Helios Extended", sans-serif;
+  font-weight: normal;
+  font-size: 12px;
+  text-align: center;
+}
+
+/*generate button*/
+.generate-button {
+  background-color: #a1b8eb;      
+  color: white;                   
+  border: none;                   
+  height: 60px;
+  width: 250px;
+  border-radius: 50px;            
+  padding: 20px;            
+  font-family: "Helios Extended", sans-serif; 
+  font-size: 16px;                
+  cursor: pointer;                
+  transition: background-color 0.3s ease;  
+}
+
+.generate-button:hover {
+  background-color: #1f5c99;      
+}
+
+.back-button {
+  background-color: #a1b8eb;      
+  color: white;                   
+  border: none;                   
+  height: 60px;
+  width: 250px;
+  border-radius: 50px;            
+  padding: 20px;            
+  font-family: "Helios Extended", sans-serif; 
+  font-size: 16px;                
+  cursor: pointer;                
+  transition: background-color 0.3s ease;  
+}
+
+.back-button:hover {
+  background-color: #1f5c99;      
+}
+
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-box {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  background-color: #f2f2f2;
+  border-radius: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.card-category {
+  font-family: "Helios Extended", sans-serif;
+  font-size: 20px;
+  font-weight: normal;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.card-name {
+  font-family: "Helios Extended", sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.card-image {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
+/* for moving between icons */
+.next-button {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;   /* vertically centers text and icon */
+  gap: 5px;   
+}

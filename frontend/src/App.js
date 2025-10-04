@@ -49,6 +49,7 @@ function App() {
     <div className="App">
       <h1>
         B<span style={{ color: "#2774AE" }}>Healthy</span>
+        <p> Because you shoudln't have to do math to be healthy! </p>
       </h1>
 
       {!showResponse ? (
@@ -59,7 +60,7 @@ function App() {
             <Calories calorieGoal={calorieGoal} setCalorieGoal={setCalorieGoal} />
           </div>
 
-          <button onClick={handleGenerate} className="generate-btn">
+          <button onClick={handleGenerate} className="generate-button">
             Generate Meal Plan
           </button>
 
@@ -67,7 +68,7 @@ function App() {
         </>
       ) : (
         <div className="response-container">
-          <button onClick={handleBack} className="back-arrow">
+          <button onClick={handleBack} className="back-button">
             ← Back
           </button>
           <GeneratedResponse response={response} />

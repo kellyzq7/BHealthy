@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import "../Card.css";
+import { MdOutlineArrowForwardIos } from "react-icons/md";
 
 const Meals = ({ mealType, setMealType }) => {
   const meals = [
@@ -16,16 +18,16 @@ const Meals = ({ mealType, setMealType }) => {
   };
 
   return (
-    <div className="meals-container">
-      <div className="meal-box">
-        <p className="form-category">Meal of the Day</p>
-        <p className="meal-name">{meals[currentIndex].name}</p>
+    <div className="card-container">
+      <div className="card-box">
+        <p className="card-category">Meal of the Day</p>
+        <p className="card-name">{meals[currentIndex].name}</p>
         <img
           src={meals[currentIndex].image}
           alt={meals[currentIndex].name}
-          className="meal-image"
+          className="card-image"
         />
-        <button onClick={handleNext} className="next-button">➡</button>
+        <button onClick={handleNext} className="next-button"><MdOutlineArrowForwardIos /></button>
       </div>
     </div>
   );
