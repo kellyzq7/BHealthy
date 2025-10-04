@@ -3,7 +3,7 @@ import "../Card.css";
 
 function GeneratedResponse({ response }) {
   return (
-    <div className="card-box">
+    <div>
       <h2>Generated Meal Plan</h2>
       <p>{response}</p>
     </div>

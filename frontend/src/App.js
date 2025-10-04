@@ -68,10 +68,10 @@ function App() {
         </>
       ) : (
         <div className="response-container">
+          <GeneratedResponse response={response} />
           <button onClick={handleBack} className="back-button">
             ← Back
           </button>
-          <GeneratedResponse response={response} />
         </div>
       )}
     </div>

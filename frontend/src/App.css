@@ -48,6 +48,8 @@ p {
   justify-content: center; /* centers the row horizontally */
   align-items: center;     /* aligns items vertically */
   padding: 10px;           /* optional spacing inside container */
+  margin-bottom: 20px;
+  margin-top: 30px;
 }
 
 
@@ -58,57 +60,6 @@ p {
   margin-bottom: 2rem;
   text-align: left;
 }
-
-
-/* old stuff below */
-
-/* .meal-form label {
-  display: flex;
-  flex-direction: column;
-  font-weight: bold;
-  color: #34495e;
-}
-
-.meal-form input,
-.meal-form select {
-  margin-top: 0.3rem;
-  padding: 0.5rem;
-  font-size: 1rem;
-} */
-
-/* .meal-form button {
-  padding: 0.7rem;
-  border: none;
-  cursor: pointer;
-  
-  width: 200px;
-  height: 75px;
-  border-radius: 50px;
-  background-color: #a1b8eb;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-family: "Helios Extended", sans-serif;
-  font-size: 15px;
-}
-
-.meal-plan button:hover {
-  background: rgb(207, 207, 218);
-  color: white;
-}
-
-.meal-plan {
-  text-align: left;
-  background: #ecf0f1;
-  padding: 1rem;
-  border-radius: 8px;
-}
-
-.meal-plan h2 {
-  margin-top: 0;
-  color: #34495e;
-} */
 
 .error-message {
   color: red;
