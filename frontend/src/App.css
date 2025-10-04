@@ -31,7 +31,13 @@ h1 {
 
 }
 
+/* body {
+  background-color:rgb(235, 234, 233);
+} */
+
 p {
+  font-family: "Helios Extended", sans serif;
+  font-weight: normal;
   color: #7f8c8d;
 }
 
@@ -43,38 +49,39 @@ p {
   text-align: left;
 }
 
-.calories-container {
+/* .calories-container {
   width: 200px;
-  height: 130px;
+  height: 200px;
   background-color: #f8f8f8;
   border-radius: 12px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 10px;
-}
+} */
 
-.calories-title {
+/* .calories-title {
   font-family: "Helios Extended", sans-serif;
   font-size: 20px;
   font-weight: normal;
   margin-bottom: 0.3rem;
-}
+} */
 
 .calories-input {
   width: 80%;
+  /* padding-top: 500px; */
   padding: 6px;
   border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 14px;
+  border-radius: 15px;
+  font-family: "Helios Extended", sans-serif;
+  font-weight: normal;
+  font-size: 12px;
   text-align: center;
 }
 
 .generate-button-style {
   width: 200px;
-  height: 100px;
+  height: 75px;
   border-radius: 50px;
   background-color: #a1b8eb;
   display: flex;
@@ -82,8 +89,65 @@ p {
   justify-content: center;
   color: #fff;
   font-family: "Helios Extended", sans-serif;
-  font-size: 18px;
+  font-size: 15px;
 }
+
+.meals-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.meal-box {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  background-color: #f2f2f2;
+  border-radius: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.form-category {
+  font-family: "Helios Extended", sans-serif;
+  font-size: 20px;
+  font-weight: normal;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.meal-name {
+  font-family: "Helios Extended", sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.meal-image {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
+.next-button {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* old stuff below */
 
 .meal-form label {
   display: flex;
@@ -101,16 +165,23 @@ p {
 
 .meal-form button {
   padding: 0.7rem;
-  background: lightblue;
-  color: black;
   border: none;
   cursor: pointer;
-  font-size: 1rem;
-  border-radius: 5px;
+  
+  width: 200px;
+  height: 75px;
+  border-radius: 50px;
+  background-color: #a1b8eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-family: "Helios Extended", sans-serif;
+  font-size: 15px;
 }
 
-.meal-form button:hover {
-  background: blue;
+.meal-plan button:hover {
+  background: rgb(207, 207, 218);
   color: white;
 }
 

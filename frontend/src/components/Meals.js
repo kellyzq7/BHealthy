@@ -32,15 +32,16 @@ const Meals = () => {
   };
 
   return (
-    <div style={styles.container}>
-      <div style={styles.mealBox}>
-        <p style={styles.mealName}>{meals[currentIndex].name}</p>
+    <div className="meals-container">
+      <div className="meal-box">
+        <p className="form-category">Meal of the Day</p>
+        <p className="meal-name">{meals[currentIndex].name}</p>
         <img
           src={meals[currentIndex].image}
           alt={meals[currentIndex].name}
-          style={styles.mealImage}
+          className="meal-image"
         />
-        <button onClick={handleNext} style={styles.nextButton}>
+        <button onClick={handleNext} className="next-button">
           ➡
         </button>
       </div>
@@ -48,49 +49,49 @@ const Meals = () => {
   );
 };
 
-const styles = {
-  container: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    margin: "20px",
-  },
-  mealBox: {
-    position: "relative",
-    width: "150px",
-    height: "180px",
-    backgroundColor: "#f2f2f2",
-    borderRadius: "12px",
-    boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    padding: "10px",
-  },
-  mealName: {
-    fontSize: "18px",
-    fontWeight: "600",
-    marginBottom: "10px",
-    textAlign: "center",
-  },
-  mealImage: {
-    width: "80px",
-    height: "80px",
-    objectFit: "contain",
-  },
-  nextButton: {
-    position: "absolute",
-    right: "8px",
-    top: "50%",
-    transform: "translateY(-50%)",
-    backgroundColor: "#fff",
-    border: "1px solid #ccc",
-    borderRadius: "50%",
-    width: "30px",
-    height: "30px",
-    cursor: "pointer",
-    fontSize: "16px",
-  },
-};
+// const styles = {
+//   container: {
+//     display: "flex",
+//     justifyContent: "center",
+//     alignItems: "center",
+//     margin: "20px",
+//   },
+//   mealBox: {
+//     position: "relative",
+//     width: "150px",
+//     height: "180px",
+//     backgroundColor: "#f2f2f2",
+//     borderRadius: "12px",
+//     boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+//     display: "flex",
+//     flexDirection: "column",
+//     alignItems: "center",
+//     padding: "10px",
+//   },
+//   mealName: {
+//     fontSize: "18px",
+//     fontWeight: "600",
+//     marginBottom: "10px",
+//     textAlign: "center",
+//   },
+//   mealImage: {
+//     width: "80px",
+//     height: "80px",
+//     objectFit: "contain",
+//   },
+//   nextButton: {
+//     position: "absolute",
+//     right: "8px",
+//     top: "50%",
+//     transform: "translateY(-50%)",
+//     backgroundColor: "#fff",
+//     border: "1px solid #ccc",
+//     borderRadius: "50%",
+//     width: "30px",
+//     height: "30px",
+//     cursor: "pointer",
+//     fontSize: "16px",
+//   },
+// };
 
 export default Meals;

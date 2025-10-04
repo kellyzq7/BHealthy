@@ -92,9 +92,16 @@ function App() {
           />
         </label>
 
+        {/* <div style={{ display: "flex", gap: "20px", padding: "20px", justifyContent: "center" }}>
+              <Meals  />
+              <DiningHalls />
+              <Calories />
+            </div> */}
+
+            
         {error && <p className="error">{error}</p>}
 
-        <button type="submit" disabled={loading}>
+        <button type="submit" disabled={loading} className="meal-form">
           {loading ? "Generating..." : "Generate Meal Plan"}
         </button>
       </form>
@@ -120,15 +127,15 @@ function App() {
       )}
     </div>
 
-    <div style={{ display: "flex", gap: "20px", padding: "20px", justifyContent: "center" }}>
+    <div style={{ display: "flex", gap: "30px", padding: "20px", justifyContent: "center" }}>
       <Meals  />
       <DiningHalls />
       <Calories />
     </div>
 
-    <div style={{ display: "flex", gap: "20px", padding: "20px", justifyContent: "center" }}>
+    {/* <div style={{ display: "flex", gap: "20px", padding: "20px", justifyContent: "center" }}>
       <GenerateButton  />
-    </div>
+    </div> */}
 
     </>
 

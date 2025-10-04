@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../App.css";
 
 const DiningHalls = () => {
   const halls = [
@@ -23,15 +24,16 @@ const DiningHalls = () => {
   };
 
   return (
-    <div style={styles.container}>
-      <div style={styles.card}>
-        <p style={styles.title}>{halls[currentIndex].name}</p>
+    <div className="meals-container">
+      <div className="meal-box">
+        <p className="form-category">Dining Hall</p> 
+        <p className="meal-name">{halls[currentIndex].name}</p>
         <img
           src={halls[currentIndex].image}
           alt={halls[currentIndex].name}
-          style={styles.image}
+          className="meal-image"
         />
-        <button onClick={handleNext} style={styles.nextButton}>
+        <button onClick={handleNext} className="next-button">
           ➡
         </button>
       </div>
@@ -39,49 +41,49 @@ const DiningHalls = () => {
   );
 };
 
-const styles = {
-  container: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    margin: "20px",
-  },
-  card: {
-    position: "relative",
-    width: "180px",
-    height: "200px",
-    backgroundColor: "#f9f9f9",
-    borderRadius: "12px",
-    boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    padding: "10px",
-  },
-  title: {
-    fontSize: "16px",
-    fontWeight: "600",
-    marginBottom: "10px",
-    textAlign: "center",
-  },
-  image: {
-    width: "90px",
-    height: "90px",
-    objectFit: "contain",
-  },
-  nextButton: {
-    position: "absolute",
-    right: "8px",
-    top: "50%",
-    transform: "translateY(-50%)",
-    backgroundColor: "#fff",
-    border: "1px solid #ccc",
-    borderRadius: "50%",
-    width: "30px",
-    height: "30px",
-    cursor: "pointer",
-    fontSize: "16px",
-  },
-};
+// const styles = {
+//   container: {
+//     display: "flex",
+//     justifyContent: "center",
+//     alignItems: "center",
+//     margin: "20px",
+//   },
+//   card: {
+//     position: "relative",
+//     width: "180px",
+//     height: "200px",
+//     backgroundColor: "#f9f9f9",
+//     borderRadius: "12px",
+//     boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+//     display: "flex",
+//     flexDirection: "column",
+//     alignItems: "center",
+//     padding: "10px",
+//   },
+//   title: {
+//     fontSize: "16px",
+//     fontWeight: "600",
+//     marginBottom: "10px",
+//     textAlign: "center",
+//   },
+//   image: {
+//     width: "90px",
+//     height: "90px",
+//     objectFit: "contain",
+//   },
+//   nextButton: {
+//     position: "absolute",
+//     right: "8px",
+//     top: "50%",
+//     transform: "translateY(-50%)",
+//     backgroundColor: "#fff",
+//     border: "1px solid #ccc",
+//     borderRadius: "50%",
+//     width: "30px",
+//     height: "30px",
+//     cursor: "pointer",
+//     fontSize: "16px",
+//   },
+// };
 
 export default DiningHalls;

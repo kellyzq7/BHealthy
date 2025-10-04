@@ -15,5 +15,5 @@ export default function GenerateButton() {
     
   // };
 
-  return <div className="generate-button-style">Generate Meal Plan</div>;
+  return <div className="meal-plan">Generate Meal Plan</div>;
 }

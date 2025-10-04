@@ -9,8 +9,8 @@ const Calories = () => {
   };
 
   return (
-    <div className="calories-container">
-      <p className="calories-title">Calories</p>
+    <div className="meal-box">
+      <p className="form-category">Calorie Goal</p>
       <input
         type="number"
         value={calories}
