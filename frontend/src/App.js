@@ -41,7 +41,9 @@ function App() {
   return (
     <div className="App">
       <header>
-        <h1>BHealthy</h1>
+        <h1>
+          B<span style={{ color: "#2774AE" }}>Healthy</span>
+        </h1>
         <p>Because you shouldn't have to do math to stay healthy!</p>
       </header>
 
