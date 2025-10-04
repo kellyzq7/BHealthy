@@ -2,7 +2,10 @@
 const MOCK_MODE = true; // toggle to false for real AI integration
 
 // If you plan to use Bedrock later
-// const { BedrockRuntimeClient, InvokeModelCommand } = require("@aws-sdk/client-bedrock-runtime");
+const {
+  BedrockRuntimeClient,
+  InvokeModelCommand,
+} = require("@aws-sdk/client-bedrock-runtime");
 
 exports.handler = async function (event) {
   try {
@@ -13,16 +16,19 @@ exports.handler = async function (event) {
     let responseBody;
 
     if (MOCK_MODE) {
-      // Simple approach: pick items until we reach goal
+      // ----------------------------
+      // MOCK AI: pick highest-calorie items first
+      // ----------------------------
       let totalCalories = 0;
       let totalProtein = 0;
       let totalCarbs = 0;
       let totalFat = 0;
       const meals = [];
 
-      const shuffledMenu = menu.sort(() => 0.5 - Math.random());
+      // Sort menu by calories descending
+      const sortedMenu = menu.sort((a, b) => b.calories - a.calories);
 
-      for (const item of shuffledMenu) {
+      for (const item of sortedMenu) {
         if (totalCalories + item.calories <= calorieGoal) {
           meals.push(item.item);
           totalCalories += item.calories;
@@ -41,7 +47,9 @@ exports.handler = async function (event) {
         total_fat: totalFat,
       };
     } else {
-      // Bedrock AI code here if you have credentials
+      // ----------------------------
+      // Bedrock AI code here
+      // ----------------------------
       const {
         BedrockRuntimeClient,
         InvokeModelCommand,
@@ -54,8 +62,9 @@ You are a meal planner for UCLA dining hall food.
 Menu: ${JSON.stringify(menu)}
 Calorie goal: ${calorieGoal}
 
-Prioritize hitting the calorie goal. Protein, carbs, fat are optional.
-Return JSON:
+Prioritize hitting the calorie goal above all else.
+Protein, carbs, and fat are optional.
+Return JSON like this:
 {
   "meals": ["item1", "item2", ...],
   "total_calories": number,
