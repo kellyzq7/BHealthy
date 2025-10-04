@@ -196,3 +196,10 @@ p {
   margin-top: 0;
   color: #34495e;
 }
+
+.error-message {
+  color: red;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
