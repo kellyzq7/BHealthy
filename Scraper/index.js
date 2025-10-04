@@ -8,15 +8,16 @@ async function getMenuItems() {
   const { data } = await axios.get(BASE_URL);
   const $ = cheerio.load(data);
 
-  const items = $(".menu-item-title")
-    .map((_, el) => {
-      const name = $(el).text().trim();
+  const items = $(".menu-item-title").map((_, el) => {
+    const name = $(el).text().trim();
 
-      const link = $(el).siblings(".see-menu-details").find("a").attr("href");
+    const link = $(el)
+      .siblings(".see-menu-details")
+      .find("a")
+      .attr("href");
 
-      return { name, link };
-    })
-    .get();
+    return { name, link };
+  }).get();
 
   return items;
 }
@@ -40,7 +41,7 @@ async function scrapeMenu() {
   const results = await Promise.all(
     menuItems.map(async (item) => ({
       name: item.name,
-      calories: await getCalories(item.link),
+      calories: await getCalories(item.link)
     }))
   );
 
@@ -56,14 +57,14 @@ exports.handler = async () => {
       statusCode: 200,
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Origin": "*"
       },
-      body: JSON.stringify(menuData),
+      body: JSON.stringify(menuData)
     };
   } catch (err) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: err.message }),
+      body: JSON.stringify({ error: err.message })
     };
   }
 };
