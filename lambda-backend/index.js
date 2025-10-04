@@ -1,16 +1,22 @@
-// Lambda handler - CommonJS
-const MOCK_MODE = true; // toggle to false for real AI integration
-
-// If you plan to use Bedrock later
+// index.js
+const serverless = require("serverless-http");
+const express = require("express");
 const {
   BedrockRuntimeClient,
   InvokeModelCommand,
 } = require("@aws-sdk/client-bedrock-runtime");
 
-exports.handler = async function (event) {
+const app = express();
+app.use(express.json());
+
+const MOCK_MODE = true; // toggle to false for real AI integration
+
+// ------------------------
+// Endpoint: POST /meal-planner
+// ------------------------
+app.post("/meal-planner", async (req, res) => {
   try {
-    const body = JSON.parse(event.body);
-    const { menu, goal } = body;
+    const { menu, goal } = req.body;
     const calorieGoal = goal.calories;
 
     let responseBody;
@@ -25,7 +31,6 @@ exports.handler = async function (event) {
       let totalFat = 0;
       const meals = [];
 
-      // Sort menu by calories descending
       const sortedMenu = menu.sort((a, b) => b.calories - a.calories);
 
       for (const item of sortedMenu) {
@@ -48,15 +53,9 @@ exports.handler = async function (event) {
       };
     } else {
       // ----------------------------
-      // Bedrock AI code here
+      // Bedrock AI code
       // ----------------------------
-      const {
-        BedrockRuntimeClient,
-        InvokeModelCommand,
-      } = require("@aws-sdk/client-bedrock-runtime");
-
       const client = new BedrockRuntimeClient({ region: "us-east-1" });
-
       const prompt = `
 You are a meal planner for UCLA dining hall food.
 Menu: ${JSON.stringify(menu)}
@@ -73,7 +72,6 @@ Return JSON like this:
   "total_fat": number
 }
       `;
-
       const command = new InvokeModelCommand({
         modelId: "anthropic.claude-v2",
         body: JSON.stringify({ prompt, max_tokens_to_sample: 300 }),
@@ -85,47 +83,12 @@ Return JSON like this:
       responseBody = JSON.parse(new TextDecoder().decode(response.body));
     }
 
-    return {
-      statusCode: 200,
-      body: JSON.stringify(responseBody),
-    };
+    res.status(200).json(responseBody);
   } catch (err) {
     console.error(err);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: err.message }),
-    };
+    res.status(500).json({ error: err.message });
   }
-};
+});
 
-// ---------------------------
-// Local test runner
-// ---------------------------
-async function runLocalTest() {
-  const fakeEvent = {
-    body: JSON.stringify({
-      menu: [
-        {
-          item: "Grilled Chicken",
-          calories: 250,
-          protein: 35,
-          carbs: 0,
-          fat: 10,
-        },
-        { item: "Rice", calories: 200, protein: 4, carbs: 45, fat: 1 },
-        { item: "Broccoli", calories: 50, protein: 4, carbs: 10, fat: 0 },
-        { item: "Pasta", calories: 300, protein: 10, carbs: 60, fat: 5 },
-        { item: "Salad", calories: 100, protein: 2, carbs: 10, fat: 5 },
-      ],
-      goal: { calories: 600 },
-    }),
-  };
-
-  const result = await exports.handler(fakeEvent);
-  console.log("Lambda Output (raw):", result);
-  console.log("Lambda Output (parsed body):", JSON.parse(result.body));
-}
-
-if (require.main === module) {
-  runLocalTest().catch(console.error);
-}
+// Wrap express app for serverless
+module.exports.handler = serverless(app);
