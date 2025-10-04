@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./App.css";
-import Meals from "./Meals";
-import GenerateButton from "./GenerateButton";
-import DiningHalls from "./DiningHalls";
-import Calories from "./Calories";
+import Meals from "./components/Meals";
+import GenerateButton from "./components/GenerateButton";
+import DiningHalls from "./components/DiningHalls";
+import Calories from "./components/Calories";
 
 function App() {
   const [mealType, setMealType] = useState("breakfast");
