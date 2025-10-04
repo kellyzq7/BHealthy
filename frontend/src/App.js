@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import "./App.css";
+import Meals from "./Meals";
+import GenerateButton from "./GenerateButton";
+import DiningHalls from "./DiningHalls";
+import Calories from "./Calories";
 
 function App() {
   const [mealType, setMealType] = useState("breakfast");
@@ -39,6 +43,7 @@ function App() {
   };
 
   return (
+    <>
     <div className="App">
       <header>
         <h1>
@@ -114,7 +119,22 @@ function App() {
         </div>
       )}
     </div>
+
+    <div style={{ display: "flex", gap: "20px", padding: "20px", justifyContent: "center" }}>
+      <Meals  />
+      <DiningHalls />
+      <Calories />
+    </div>
+
+    <div style={{ display: "flex", gap: "20px", padding: "20px", justifyContent: "center" }}>
+      <GenerateButton  />
+    </div>
+
+    </>
+
   );
+
+
 }
 
 export default App;
