@@ -9,37 +9,15 @@ const {
 const app = express();
 app.use(express.json());
 
-// CORS middleware
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
-  next();
-});
-
-const MOCK_MODE = false; // toggle to false for real AI integration
+const MOCK_MODE = true; // toggle to false for real AI integration
 
 // ------------------------
 // Endpoint: POST /meal-planner
 // ------------------------
 app.post("/meal-planner", async (req, res) => {
   try {
-    const { menu, goal, mealType, diningHall, calorieGoal } = req.body;
-    
-    // Handle both formats: new frontend format and old format
-    const calories = goal?.calories || parseInt(calorieGoal) || 600;
-    
-    // Use mock menu if none provided
-    const menuData = menu || [
-      { item: "Grilled Chicken Breast", calories: 250, protein: 35, carbs: 0, fat: 10 },
-      { item: "Brown Rice", calories: 200, protein: 4, carbs: 45, fat: 1 },
-      { item: "Steamed Broccoli", calories: 50, protein: 4, carbs: 10, fat: 0 },
-      { item: "Quinoa Salad", calories: 180, protein: 6, carbs: 30, fat: 5 },
-      { item: "Grilled Salmon", calories: 300, protein: 40, carbs: 0, fat: 15 }
-    ];
+    const { menu, goal } = req.body;
+    const calorieGoal = goal.calories;
 
     let responseBody;
 
@@ -53,17 +31,17 @@ app.post("/meal-planner", async (req, res) => {
       let totalFat = 0;
       const meals = [];
 
-      const sortedMenu = menuData.sort((a, b) => b.calories - a.calories);
+      const sortedMenu = menu.sort((a, b) => b.calories - a.calories);
 
       for (const item of sortedMenu) {
-        if (totalCalories + item.calories <= calories) {
+        if (totalCalories + item.calories <= calorieGoal) {
           meals.push(item.item);
           totalCalories += item.calories;
           totalProtein += item.protein || 0;
           totalCarbs += item.carbs || 0;
           totalFat += item.fat || 0;
         }
-        if (totalCalories >= calories) break;
+        if (totalCalories >= calorieGoal) break;
       }
 
       responseBody = {
@@ -80,8 +58,8 @@ app.post("/meal-planner", async (req, res) => {
       const client = new BedrockRuntimeClient({ region: "us-east-1" });
       const prompt = `
 You are a meal planner for UCLA dining hall food.
-Menu: ${JSON.stringify(menuData)}
-Calorie goal: ${calories}
+Menu: ${JSON.stringify(menu)}
+Calorie goal: ${calorieGoal}
 
 Prioritize hitting the calorie goal above all else.
 Protein, carbs, and fat are optional.
@@ -95,30 +73,14 @@ Return JSON like this:
 }
       `;
       const command = new InvokeModelCommand({
-        modelId: "amazon.titan-text-express-v1",
-        body: JSON.stringify({
-          inputText: prompt,
-          textGenerationConfig: {
-            maxTokenCount: 300,
-            temperature: 0.1
-          }
-        }),
+        modelId: "anthropic.claude-v2",
+        body: JSON.stringify({ prompt, max_tokens_to_sample: 300 }),
         contentType: "application/json",
         accept: "application/json",
       });
 
       const response = await client.send(command);
-      const decoded = new TextDecoder().decode(response.body);
-      const aiResponse = JSON.parse(decoded);
-      const content = aiResponse.results[0].outputText;
-      
-      // Extract JSON from AI response
-      const jsonMatch = content.match(/\{[^}]+\}/s);
-      if (jsonMatch) {
-        responseBody = JSON.parse(jsonMatch[0]);
-      } else {
-        throw new Error('AI response invalid');
-      }
+      responseBody = JSON.parse(new TextDecoder().decode(response.body));
     }
 
     res.status(200).json(responseBody);

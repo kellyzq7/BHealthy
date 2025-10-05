@@ -10,9 +10,6 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@aws-sdk/client-bedrock-runtime": "^3.901.0",
-    "cors": "^2.8.5",
-    "express": "^4.21.2",
-    "serverless-http": "^3.2.0"
+    "@aws-sdk/client-bedrock-runtime": "^3.901.0"
   }
 }
