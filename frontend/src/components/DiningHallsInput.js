@@ -4,9 +4,9 @@ import { MdOutlineArrowForwardIos } from "react-icons/md";
 
 const DiningHalls = ({ diningHall, setDiningHall }) => {
   const halls = [
-    { name: "De Neve Dining", image: "https://cdn-icons-png.flaticon.com/512/3595/3595455.png" },
-    { name: "Bruin Plate", image: "https://cdn-icons-png.flaticon.com/512/857/857681.png" },
-    { name: "Epicuria at Covel", image: "https://cdn-icons-png.flaticon.com/512/3075/3075977.png" },
+    { name: "De Neve Dining", image: "../images/denevedining_circle.png" },
+    { name: "Bruin Plate", image: "../images/bplate_circle.png" },
+    { name: "Epicuria at Covel", image: "../images/epicatcovel_circle.png" },
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -25,7 +25,7 @@ const DiningHalls = ({ diningHall, setDiningHall }) => {
         <img
           src={halls[currentIndex].image}
           alt={halls[currentIndex].name}
-          className="card-image"
+          className="dining-image"
         />
         <button onClick={handleNext} className="next-button"> <MdOutlineArrowForwardIos /></button>
       </div>

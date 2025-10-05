@@ -4,7 +4,7 @@ import { MdOutlineArrowForwardIos } from "react-icons/md";
 
 const Meals = ({ mealType, setMealType }) => {
   const meals = [
-    { name: "Breakfast", image: "https://cdn-icons-png.flaticon.com/512/1046/1046784.png" },
+    { name: "Breakfast", image: "../images/breakfast.png" },
     { name: "Lunch", image: "https://cdn-icons-png.flaticon.com/512/3075/3075977.png" },
     { name: "Dinner", image: "https://cdn-icons-png.flaticon.com/512/1046/1046857.png" },
   ];
