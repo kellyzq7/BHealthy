@@ -52,7 +52,7 @@ function App() {
     <div className="App">
       <h1>
         B<span style={{ color: "#2774AE" }}>Healthy</span>
-        <p> Because you shoudln't have to do math to be healthy! </p>
+        {/* <p> Because you shoudln't have to do math to be healthy! </p> */}
       </h1>
 
       {!showResponse ? (
