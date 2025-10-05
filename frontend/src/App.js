@@ -24,11 +24,14 @@ function App() {
     setShowResponse(false);
 
     try {
-      const res = await fetch("YOUR_LAMBDA_ENDPOINT_HERE", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ mealType, diningHall, calorieGoal }),
-      });
+      const res = await fetch(
+        "https://ei8cuw9hi7.execute-api.us-east-2.amazonaws.com/default/bhealthy-backend/meal-planner",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ mealType, diningHall, calorieGoal }),
+        }
+      );
 
       const data = await res.json();
       setResponse(data.message || "No response from backend.");
@@ -56,8 +59,14 @@ function App() {
         <>
           <div className="input-row">
             <Meals mealType={mealType} setMealType={setMealType} />
-            <DiningHalls diningHall={diningHall} setDiningHall={setDiningHall} />
-            <Calories calorieGoal={calorieGoal} setCalorieGoal={setCalorieGoal} />
+            <DiningHalls
+              diningHall={diningHall}
+              setDiningHall={setDiningHall}
+            />
+            <Calories
+              calorieGoal={calorieGoal}
+              setCalorieGoal={setCalorieGoal}
+            />
           </div>
 
           <button onClick={handleGenerate} className="generate-button">

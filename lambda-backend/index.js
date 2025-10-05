@@ -5,19 +5,60 @@ const {
   BedrockRuntimeClient,
   InvokeModelCommand,
 } = require("@aws-sdk/client-bedrock-runtime");
+const { LambdaClient, InvokeCommand } = require("@aws-sdk/client-lambda");
 
 const app = express();
 app.use(express.json());
 
 const MOCK_MODE = true; // toggle to false for real AI integration
 
+// Function to call scraper Lambda
+async function getMenuFromScraper() {
+  try {
+    const lambda = new LambdaClient({ region: "us-east-1" });
+    const command = new InvokeCommand({
+      FunctionName: "bhealthy-scraper", // Your scraper Lambda function name
+      Payload: JSON.stringify({}),
+    });
+
+    const response = await lambda.send(command);
+    const payload = JSON.parse(new TextDecoder().decode(response.Payload));
+
+    if (payload.statusCode === 200) {
+      return JSON.parse(payload.body);
+    } else {
+      throw new Error("Scraper failed");
+    }
+  } catch (error) {
+    console.error("Error calling scraper:", error);
+    // Return mock data if scraper fails
+    return [
+      { name: "Pizza Slice", calories: 300, protein: 12, carbs: 35, fat: 10 },
+      { name: "Chicken Breast", calories: 250, protein: 30, carbs: 0, fat: 8 },
+      { name: "Rice Bowl", calories: 200, protein: 4, carbs: 45, fat: 2 },
+      { name: "Salad", calories: 150, protein: 8, carbs: 20, fat: 5 },
+    ];
+  }
+}
+
 // ------------------------
 // Endpoint: POST /meal-planner
 // ------------------------
 app.post("/meal-planner", async (req, res) => {
   try {
-    const { menu, goal } = req.body;
-    const calorieGoal = goal.calories;
+    const { mealType, diningHall, calorieGoal } = req.body;
+
+    // Get menu data from scraper
+    const menuData = await getMenuFromScraper();
+
+    // Convert scraper data to expected format
+    const menu = menuData.map((item) => ({
+      item: item.name,
+      calories: parseInt(item.calories) || 0,
+      protein: item.protein || 0,
+      carbs: item.carbs || 0,
+      fat: item.fat || 0,
+    }));
 
     let responseBody;
 
