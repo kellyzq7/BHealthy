@@ -12,8 +12,15 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "Roca Black";
+  src: url("fonts/Roca Black.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 h2 {
-    font-family: "Helios Extended";
+    font-family: "Roca Black";
     font-weight: bold;
 
 }
@@ -41,7 +48,7 @@ h2 {
 
 /*generate button*/
 .generate-button {
-  background-color: #a1b8eb;      
+  background-color: #badbf1;      
   color: white;                   
   border: none;                   
   height: 60px;
@@ -59,7 +66,7 @@ h2 {
 }
 
 .back-button {
-  background-color: #a1b8eb;      
+  background-color: #badbf1;      
   color: white;                   
   border: none;                   
   height: 50px;
@@ -81,13 +88,14 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
+  border-width: 5px;
 }
 
 .card-box {
   position: relative;
   width: 250px;
   height: 250px;
-  background-color: #f2f2f2;
+  border: 1px solid #000;
   border-radius: 20px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -97,11 +105,12 @@ h2 {
 }
 
 .card-category {
-  font-family: "Helios Extended", sans-serif;
-  font-size: 20px;
+  font-family: "Roca Black", serif;
+  font-size: 25px;
   font-weight: normal;
   margin-bottom: 10px;
   text-align: center;
+  color: #000;
 }
 
 .card-name {
@@ -110,6 +119,8 @@ h2 {
   font-weight: normal;
   margin-bottom: 10px;
   text-align: center;
+  color:#000;
+  
 }
 
 .card-image {
@@ -125,7 +136,7 @@ h2 {
   right: 8px;
   top: 50%;
   transform: translateY(-50%);
-  background-color: #fff;
+  /* background-color: #fff; */
   border: 1px solid #ccc;
   border-radius: 50%;
   width: 30px;

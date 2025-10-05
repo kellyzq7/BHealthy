@@ -12,6 +12,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "Roca Black";
+  src: url("fonts/Roca Black.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 .App {
   font-family: "Albert Sans", sans-serif;
   font-weight: 800;
@@ -31,12 +38,12 @@ h1 {
 
 }
 
-/* body {
+body {
   background-color:rgb(235, 234, 233);
-} */
+}
 
 p {
-  font-family: "Helios Extended", sans serif;
+  font-family: "Roca Black", sans serif;
   font-weight: normal;
   font-size: 15px;
   color: #7f8c8d;
