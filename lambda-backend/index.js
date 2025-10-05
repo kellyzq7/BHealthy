@@ -10,7 +10,18 @@ const { LambdaClient, InvokeCommand } = require("@aws-sdk/client-lambda");
 const app = express();
 app.use(express.json());
 
-const MOCK_MODE = true; // toggle to false for real AI integration
+// CORS middleware
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+  next();
+});
+
+const MOCK_MODE = false; // toggle to false for real AI integration
 
 // Function to call scraper Lambda
 async function getMenuFromScraper() {
@@ -72,17 +83,17 @@ app.post("/meal-planner", async (req, res) => {
       let totalFat = 0;
       const meals = [];
 
-      const sortedMenu = menu.sort((a, b) => b.calories - a.calories);
+      const sortedMenu = menuData.sort((a, b) => b.calories - a.calories);
 
       for (const item of sortedMenu) {
-        if (totalCalories + item.calories <= calorieGoal) {
+        if (totalCalories + item.calories <= calories) {
           meals.push(item.item);
           totalCalories += item.calories;
           totalProtein += item.protein || 0;
           totalCarbs += item.carbs || 0;
           totalFat += item.fat || 0;
         }
-        if (totalCalories >= calorieGoal) break;
+        if (totalCalories >= calories) break;
       }
 
       responseBody = {
@@ -99,8 +110,8 @@ app.post("/meal-planner", async (req, res) => {
       const client = new BedrockRuntimeClient({ region: "us-east-1" });
       const prompt = `
 You are a meal planner for UCLA dining hall food.
-Menu: ${JSON.stringify(menu)}
-Calorie goal: ${calorieGoal}
+Menu: ${JSON.stringify(menuData)}
+Calorie goal: ${calories}
 
 Prioritize hitting the calorie goal above all else.
 Protein, carbs, and fat are optional.
@@ -114,14 +125,30 @@ Return JSON like this:
 }
       `;
       const command = new InvokeModelCommand({
-        modelId: "anthropic.claude-v2",
-        body: JSON.stringify({ prompt, max_tokens_to_sample: 300 }),
+        modelId: "amazon.titan-text-express-v1",
+        body: JSON.stringify({
+          inputText: prompt,
+          textGenerationConfig: {
+            maxTokenCount: 300,
+            temperature: 0.1
+          }
+        }),
         contentType: "application/json",
         accept: "application/json",
       });
 
       const response = await client.send(command);
-      responseBody = JSON.parse(new TextDecoder().decode(response.body));
+      const decoded = new TextDecoder().decode(response.body);
+      const aiResponse = JSON.parse(decoded);
+      const content = aiResponse.results[0].outputText;
+      
+      // Extract JSON from AI response
+      const jsonMatch = content.match(/\{[^}]+\}/s);
+      if (jsonMatch) {
+        responseBody = JSON.parse(jsonMatch[0]);
+      } else {
+        throw new Error('AI response invalid');
+      }
     }
 
     res.status(200).json(responseBody);

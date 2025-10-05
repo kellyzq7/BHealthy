@@ -1,5 +1,5 @@
-const axios = require("axios");
-const cheerio = require("cheerio");
+import axios from "axios";
+import * as cheerio from "cheerio";
 
 const BASE_URL = "https://dining.ucla.edu/de-neve-dining/";
 
@@ -48,7 +48,7 @@ async function scrapeMenu() {
 }
 
 // AWS Lambda handler
-exports.handler = async () => {
+export const handler = async () => {
   try {
     const menuData = await scrapeMenu();
 

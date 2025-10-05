@@ -23,22 +23,31 @@ function App() {
     setError("");
     setShowResponse(false);
 
+    // Mock menu data for demo
+    const mockMenu = [
+      { item: "Grilled Chicken Breast", calories: 250, protein: 35, carbs: 0, fat: 10 },
+      { item: "Brown Rice", calories: 200, protein: 4, carbs: 45, fat: 1 },
+      { item: "Steamed Broccoli", calories: 50, protein: 4, carbs: 10, fat: 0 },
+      { item: "Quinoa Salad", calories: 180, protein: 6, carbs: 30, fat: 5 },
+      { item: "Grilled Salmon", calories: 300, protein: 40, carbs: 0, fat: 15 },
+      { item: "Sweet Potato", calories: 150, protein: 2, carbs: 35, fat: 0 },
+      { item: "Greek Yogurt", calories: 120, protein: 15, carbs: 10, fat: 5 },
+      { item: "Mixed Vegetables", calories: 80, protein: 3, carbs: 15, fat: 1 }
+    ];
+
     try {
-      const res = await fetch(
-        "https://ei8cuw9hi7.execute-api.us-east-2.amazonaws.com/default/bhealthy-backend/meal-planner",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ mealType, diningHall, calorieGoal }),
-        }
-      );
+      const res = await fetch("https://looo62rg3afi7sqnsa7wnuzglq0nrtlo.lambda-url.us-east-1.on.aws/meal-planner", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mealType, diningHall, calorieGoal }),
+      });
 
       const data = await res.json();
-      setResponse(data.message || "No response from backend.");
+      setResponse(data);
       setShowResponse(true);
     } catch (err) {
       console.error(err);
-      setResponse("Error fetching response.");
+      setResponse("Error generating meal plan.");
       setShowResponse(true);
     }
   };
